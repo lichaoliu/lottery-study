@@ -1,4 +1,4 @@
-package com.me.lotterystudy;
+package com.we.lotterytask;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LotteryStudyApplicationTests {
+public class LotteryTaskApplicationTests {
 
     @Test
     public void contextLoads() {

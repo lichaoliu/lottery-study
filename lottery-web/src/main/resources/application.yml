@@ -1,0 +1,15 @@
+server:
+  port: 1688
+spring:
+  datasource:
+    name: mysql_test
+    type: com.alibaba.druid.pool.DruidDataSource
+    #druid相关配置
+    druid:
+      #监控统计拦截的filters
+      filters: stat
+      driver-class-name: com.mysql.jdbc.Driver
+      #基本属性
+      url: jdbc:mysql://19.168.200.7:3306/lottery_study?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: idss@1234
