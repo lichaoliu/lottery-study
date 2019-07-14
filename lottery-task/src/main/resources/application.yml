@@ -12,6 +12,7 @@ server:
   port: 1689
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://192.168.200.7:3306/lottery_study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: idss@1234

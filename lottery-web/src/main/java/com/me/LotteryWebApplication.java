@@ -1,14 +1,13 @@
-package com.we.lotterytask;
+package com.me;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-public class LotteryTaskApplication {
+public class LotteryWebApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LotteryTaskApplication.class, args);
+        SpringApplication.run(LotteryWebApplication.class, args);
     }
 
 }
