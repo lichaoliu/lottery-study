@@ -1,6 +1,6 @@
 package com.me.lotteryweb.controller;
 
-import com.me.lotteryapi.issue.service.IssueService;
+import com.me.lotteryapi.issue.service.IssueSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    IssueService issueService;
+    IssueSettingService issueService;
 
 
 

@@ -1,4 +1,4 @@
-package com.we.lotterytask.config;
+package com.me.lotterytask.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

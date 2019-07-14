@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.lotteryapi.issue.dao.IssueGenerateRuleMapper">
+    <resultMap id="BaseResultMap" type="com.me.lotteryapi.issue.entity.IssueGenerateRule">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="issue_count" jdbcType="INTEGER" property="issueCount" />
+        <result column="issue_setting_id" jdbcType="VARCHAR" property="issueSettingId" />
+        <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+        <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+        <result column="time_interval" jdbcType="VARCHAR" property="timeInterval" />
+    </resultMap>
+
+
+    <select id="getIssueGenerateRuleByIssueSettingId" resultMap="BaseResultMap">
+        select * from issue_generate_rule where issue_setting_id = #{id}
+    </select>
+</mapper>

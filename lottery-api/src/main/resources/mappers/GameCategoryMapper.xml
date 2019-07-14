@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.lotteryapi.game.dao.GameCategoryMapper">
+
+    <resultMap id="GameCategoryMap" type="com.me.lotteryapi.game.entity.GameCategory">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="game_category_code" jdbcType="VARCHAR" property="gameCategoryCode" />
+        <result column="game_category_name" jdbcType="VARCHAR" property="gameCategoryName" />
+        <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+        <collection property="games" ofType="com.me.lotteryapi.game.entity.Game">
+            <result column="id" jdbcType="VARCHAR" property="id" />
+            <result column="game_code" jdbcType="VARCHAR" property="gameCode" />
+            <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+            <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+            <result column="state" jdbcType="VARCHAR" property="state" />
+            <result column="game_desc" jdbcType="VARCHAR" property="gameDesc" />
+            <result column="game_category_id" jdbcType="VARCHAR" property="gameCategoryId" />
+            <result column="hot_game_flag" jdbcType="BIT" property="hotGameFlag" />
+        </collection>
+    </resultMap>
+
+    <select id="getGameCategoryById" resultMap="GameCategoryMap">
+      select c.*,g.* from game_category c,game g where g.game_category_id = c.id and c.id = '1131591536937533440'
+    </select>
+</mapper>

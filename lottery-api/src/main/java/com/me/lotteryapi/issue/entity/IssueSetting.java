@@ -1,8 +1,11 @@
 package com.me.lotteryapi.issue.entity;
 
+import com.me.lotteryapi.game.entity.Game;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Set;
 
 
 /**
@@ -31,5 +34,15 @@ public class IssueSetting {
      * 对应彩票id
      */
     private String gameId;
+
+    /**
+     * 彩种
+     */
+    private Game game;
+
+    /**
+     * 彩期生成规则
+     */
+    private Set<IssueGenerateRule> issueGenerateRules;
 
 }

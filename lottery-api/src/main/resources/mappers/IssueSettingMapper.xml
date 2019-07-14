@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.lotteryapi.issue.dao.issueSettingMapper">
+
+    <resultMap id="IssueSettingResultMap" type="com.me.lotteryapi.issue.entity.IssueSetting">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="date_format" jdbcType="VARCHAR" property="dateFormat" />
+        <result column="issue_format" jdbcType="VARCHAR" property="issueFormat" />
+        <result column="game_id" jdbcType="VARCHAR" property="gameId" />
+        <association property="game" javaType="com.me.lotteryapi.game.entity.Game">
+            <result column="id" jdbcType="VARCHAR" property="id" />
+            <result column="game_code" jdbcType="VARCHAR" property="gameCode" />
+            <result column="game_name" jdbcType="VARCHAR" property="gameName" />
+            <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+            <result column="state" jdbcType="VARCHAR" property="state" />
+            <result column="game_desc" jdbcType="VARCHAR" property="gameDesc" />
+            <result column="game_category_id" jdbcType="VARCHAR" property="gameCategoryId" />
+            <result column="hot_game_flag" jdbcType="BIT" property="hotGameFlag" />
+        </association>
+        <collection property="issueGenerateRules" ofType="com.me.lotteryapi.issue.entity.IssueGenerateRule">
+            <result column="id" jdbcType="VARCHAR" property="id" />
+            <result column="issue_count" jdbcType="INTEGER" property="issueCount" />
+            <result column="issue_setting_id" jdbcType="VARCHAR" property="issueSettingId" />
+            <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+            <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+            <result column="time_interval" jdbcType="VARCHAR" property="timeInterval" />
+        </collection>
+    </resultMap>
+
+    <select id="getIssueSetting" resultMap="IssueSettingResultMap">
+        select * from issue_setting i,game g,issue_generate_rule r where i.game_id = g.id and i.id = r.issue_setting_id
+    </select>
+</mapper>
