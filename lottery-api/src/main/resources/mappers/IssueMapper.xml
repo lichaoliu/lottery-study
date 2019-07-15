@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.lotteryapi.issue.dao.IssueMapper">
+    <resultMap id="IssueResultMap" type="com.me.lotteryapi.issue.entity.Issue">
+        <result column="id" jdbcType="VARCHAR" property="id" />
+        <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+        <result column="game_code" jdbcType="VARCHAR" property="gameCode" />
+        <result column="issue_num" jdbcType="VARCHAR" property="issueNum" />
+        <result column="lottery_date" jdbcType="VARCHAR" property="lotteryDate" />
+        <result column="lottery_num" jdbcType="VARCHAR" property="lotteryNum" />
+        <result column="lottery_time" jdbcType="VARCHAR" property="lotteryTime" />
+        <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+        <result column="sync_time" jdbcType="VARCHAR" property="syncTime" />
+        <result column="version" jdbcType="VARCHAR" property="version" />
+        <result column="settlement_time" jdbcType="VARCHAR" property="settlementTime" />
+        <result column="automatic_lottery" jdbcType="VARCHAR" property="automaticLottery" />
+        <result column="automatic_settlement" jdbcType="VARCHAR" property="automaticSettlement" />
+        <result column="issue_num_inner" jdbcType="VARCHAR" property="issueNumInner" />
+    </resultMap>
+
+    <select id="getIssueByGameCodeAndLotteryDate" resultMap="IssueResultMap">
+        select * from issue where game_code = #{gameCode} and lottery_date = #{lotteryDate}
+    </select>
+
+    <insert id="save" parameterType="com.me.lotteryapi.issue.entity.Issue">
+        INSERT INTO issue(
+        id,end_time,game_code,issue_num,lottery_date,lottery_num,lottery_time,start_time,state,sync_time,version,settlement_time,automatic_lottery,automatic_settlement,issue_num_inner
+        ) VALUES (
+          #{id},#{endTime},#{gameCode},#{issueNum},#{lotteryDate},#{lotteryNum},#{lotteryTime},#{startTime},#{state},#{syncTime},#{version},#{settlementTime},#{automaticLottery},#{automaticSettlement},#{issueNumInner}
+        )
+    </insert>
+
+</mapper>
