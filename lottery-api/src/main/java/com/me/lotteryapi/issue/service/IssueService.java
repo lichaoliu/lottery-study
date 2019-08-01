@@ -39,6 +39,10 @@ public class IssueService {
         return issueMapper.save(issue);
     }
 
+//    public Issue getLatelyIssue(String gameCode,String nowTime){
+//
+//    }
+
     @Transactional
     public void generateIssue(DateTime currentDate) {
         List<IssueSetting> list = issueSettingService.getIssueSetting();

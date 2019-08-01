@@ -1,9 +1,12 @@
 package com.me.lotteryweb.controller;
 
 import com.me.lotteryapi.issue.service.IssueSettingService;
+import com.me.lotteryapi.issue.vo.IssueVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
 
 /**
  * @program: lottery-study
@@ -19,18 +22,15 @@ public class TestController {
 
 
 
+
+
     @PostMapping("/placeOrder")
-    public String test(){
-        System.out.println("mmmmmmmmmmmmmmm");
-        issueService.test(null);
-        return "tset";
+    public IssueVo test(){
+        IssueVo issueVo1 = new IssueVo();
+        issueVo1.setLotteryTime(new Date());
+        return issueVo1;
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public String handleSQLException(HttpServletRequest request, Exception ex) {
-//
-//        return "验证错误";
-//    }
 
     public static void  main(String[] argus){
 //        DateTime dateTime = DateUtil.offset(new Date(), DateField.DAY_OF_YEAR, 0);

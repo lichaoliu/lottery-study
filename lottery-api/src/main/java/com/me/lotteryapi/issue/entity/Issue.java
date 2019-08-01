@@ -1,5 +1,6 @@
 package com.me.lotteryapi.issue.entity;
 
+import com.me.lotteryapi.constants.Constant;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -91,5 +92,20 @@ public class Issue {
      * 乐观锁版本号
      */
     private Long version;
+
+    /**
+     * 同步开奖号码
+     * @param lotteryNum
+     */
+    public void syncLotteryNum(String lotteryNum){
+        this.setLotteryNum(lotteryNum);
+        this.setSyncTime(new Date());
+        this.setState(Constant.期号状态_已开奖);
+    }
+
+    public void settlement(){
+        this.setSettlementTime(new Date());
+        this.setState(Constant.期号状态_已结算);
+    }
 
 }
