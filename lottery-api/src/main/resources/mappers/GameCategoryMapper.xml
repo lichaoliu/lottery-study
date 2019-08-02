@@ -20,6 +20,6 @@
     </resultMap>
 
     <select id="getGameCategoryById" resultMap="GameCategoryMap">
-      select c.*,g.* from game_category c,game g where g.game_category_id = c.id and c.id = '1131591536937533440'
+      select c.*,g.* from game_category c,game g where g.game_category_id = c.id and c.id = #{id}
     </select>
 </mapper>
