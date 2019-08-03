@@ -9,7 +9,13 @@ import java.util.List;
 
 @Mapper
 public interface IssueMapper {
-    List<Issue> getIssueByGameCodeAndLotteryDate(@Param("gameCode") String gameCode,@Param("lotteryDate") Date lotteryDate);
+    List<Issue> getIssueByGameCodeAndLotteryDate(@Param("gameCode") String gameCode, @Param("lotteryDate") Date lotteryDate);
 
     Integer save(Issue issue);
+
+    Issue getCurrentIssue(@Param("gameCode") String gameCode, @Param("now") String now, @Param("now1") String now1);
+
+    Issue getTopIssueByEndTime(@Param("gameCode") String gameCode, @Param("now") String now);
+
+    Issue getTopIssueByIssueNum(@Param("gameCode") String gameCode, @Param("issueNum") Long issueNum);
 }

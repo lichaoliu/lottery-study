@@ -2,9 +2,34 @@ server:
   port: 1688
 spring:
   datasource:
-    url: jdbc:mysql://192.168.200.7:3306/argus-citic?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    url: jdbc:mysql://192.168.200.7:3306/lottery?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: idss@1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    password: idss@1234
 mybatis:
   mapper-locations: mappers/*.xml
+jetcache:
+  areaInCacheName: false
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson
+  remote:
+    default:
+      type: redis
+      keyConvertor: fastjson
+      valueEncoder: java
+      valueDecoder: java
+      host: 192.168.200.8
+      port: 6379
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      auth: idss@1234
+#      type: redis.lettuce
+#      keyConvertor: fastjson
+#      uri: redis://192.168.200.8:6379/
+

@@ -1,11 +1,14 @@
 package com.me.lotteryapi.dictconfig.service;
 
+import com.alicp.jetcache.anno.Cached;
 import com.me.lotteryapi.dictconfig.dao.DictItemMapper;
 import com.me.lotteryapi.dictconfig.domain.DictItem;
 import com.me.lotteryapi.dictconfig.domain.DictType;
 import com.me.lotteryapi.dictconfig.vo.DictItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: lottery-study
@@ -22,6 +25,8 @@ public class DictItemService {
     @Autowired
     DictItemMapper dictItemMapper;
 
+    @Cached(name = "dictItem_", key = "#dictTypeCode + '_' +  #dictItemCode", expire = 3600, timeUnit = TimeUnit.SECONDS)
+    @Transactional(readOnly = true)
     public DictItemVO getDictItemByDictCodeAndId(String dictTypeCode, String dictItemCode) {
         DictType dictType = dictTypeService.getDictTypeByCode(dictTypeCode);
         DictItem dictItem = getDictItemByDictTypeId(dictType.getId(), dictItemCode);

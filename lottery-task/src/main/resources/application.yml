@@ -9,3 +9,14 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
 mybatis:
   mapper-locations: mappers/*.xml
+jetcache:
+  areaInCacheName: false
+  local:
+    default:
+      type: linkedhashmap
+      keyConvertor: fastjson
+  remote:
+    default:
+      type: redis.lettuce
+      keyConvertor: fastjson
+      uri: redis://192.168.200.8:6379/

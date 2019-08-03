@@ -31,4 +31,16 @@
         )
     </insert>
 
+    <select id="getCurrentIssue" resultMap="IssueResultMap">
+        select * from issue where game_code = #{gameCode} and  start_time &lt;= #{now} and end_time &gt; #{now1} LIMIT 1
+    </select>
+
+    <select id="getTopIssueByEndTime" resultMap="IssueResultMap">
+        select * from issue where game_code = #{gameCode} and  end_time &lt;= #{now} ORDER BY end_time desc limit 1
+    </select>
+
+    <select id="getTopIssueByIssueNum" resultMap="IssueResultMap">
+        select * from issue where game_code = #{gameCode} and  issue_num &lt; #{issueNum} ORDER BY issue_num desc limit 1
+    </select>
+
 </mapper>

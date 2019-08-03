@@ -2,6 +2,7 @@ package com.me.lotteryapi.issue.service;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.me.lotteryapi.common.utils.IdUtils;
@@ -10,6 +11,7 @@ import com.me.lotteryapi.issue.dao.IssueMapper;
 import com.me.lotteryapi.issue.entity.Issue;
 import com.me.lotteryapi.issue.entity.IssueGenerateRule;
 import com.me.lotteryapi.issue.entity.IssueSetting;
+import com.me.lotteryapi.issue.vo.IssueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +41,22 @@ public class IssueService {
         return issueMapper.save(issue);
     }
 
-//    public Issue getLatelyIssue(String gameCode,String nowTime){
-//
-//    }
+    public IssueVO getLatelyIssue(String gameCode) {
+        IssueVO currentIssue = getCurrentIssue(gameCode);
+        if(currentIssue == null){
+            String now = DateUtil.format(new Date(), DatePattern.NORM_DATETIME_PATTERN);
+            Issue latelyIssue = issueMapper.getTopIssueByEndTime(gameCode,now);
+            return IssueVO.convertFor(latelyIssue);
+        }
+        Issue latelyIssue = issueMapper.getTopIssueByIssueNum(gameCode,currentIssue.getIssueNum());
+        return IssueVO.convertFor(latelyIssue);
+    }
+
+    public IssueVO getCurrentIssue(String gameCode) {
+        String now = DateUtil.format(new Date(), DatePattern.NORM_DATETIME_PATTERN);
+        Issue currentIssue = issueMapper.getCurrentIssue(gameCode,now,now);
+        return IssueVO.convertFor(currentIssue);
+    }
 
     @Transactional
     public void generateIssue(DateTime currentDate) {
@@ -88,4 +103,5 @@ public class IssueService {
         }
 
     }
+
 }
