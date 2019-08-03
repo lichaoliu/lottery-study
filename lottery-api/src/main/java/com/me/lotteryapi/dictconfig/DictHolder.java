@@ -28,7 +28,10 @@ public class DictHolder {
 
     public static String getDictItemName(String dictTypeCode, String dictItemCode){
         DictItemVO dictItemVO = dictHolder.dictService.getDictItemByDictCodeAndId(dictTypeCode,dictItemCode);
-        return "";
+        if(dictItemVO == null){
+            return null;
+        }
+        return dictItemVO.getDictItemName();
     }
 
 }

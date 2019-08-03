@@ -2,6 +2,7 @@ package com.me.lotteryapi.issue.vo;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.me.lotteryapi.dictconfig.DictHolder;
 import com.me.lotteryapi.issue.entity.Issue;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -105,8 +106,8 @@ public class IssueVO {
         }
         IssueVO vo = new IssueVO();
         BeanUtils.copyProperties(issue, vo);
-//        vo.setGameName(DictHolder.getDictItemName("game", vo.getGameCode()));
-//        vo.setStateName(DictHolder.getDictItemName("issueState", vo.getState()));
+        vo.setGameName(DictHolder.getDictItemName("game", vo.getGameCode()));
+        vo.setStateName(DictHolder.getDictItemName("issueState", vo.getState()));
         return vo;
     }
 }

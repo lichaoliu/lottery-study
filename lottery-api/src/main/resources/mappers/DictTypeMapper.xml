@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.me.lotteryapi.dictconfig.dao.DictTypeMapper">
     <resultMap id="DictTypeMap" type="com.me.lotteryapi.dictconfig.domain.DictType">
-        <result column="id" jdbcType="VARCHAR" property="id" />
+        <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="dict_type_code" jdbcType="VARCHAR" property="dictTypeCode" />
         <result column="dict_type_name" jdbcType="VARCHAR" property="dictTypeName" />
         <result column="version" jdbcType="INTEGER" property="version" />
-        <result column="note" jdbcType="INTEGER" property="note" />
+        <result column="note" jdbcType="VARCHAR" property="note" />
     </resultMap>
 
     <select id="getDictTypeByCode" resultMap="DictTypeMap">

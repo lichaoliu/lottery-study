@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.lotteryapi.dictconfig.dao.DictItemMapper">
+    <resultMap id="DictItemMap" type="com.me.lotteryapi.dictconfig.domain.DictItem">
+        <id column="id" jdbcType="VARCHAR" property="id" />
+        <result column="dict_item_code" jdbcType="VARCHAR" property="dictItemCode" />
+        <result column="dict_item_name" jdbcType="VARCHAR" property="dictItemName" />
+        <result column="dict_type_id" jdbcType="VARCHAR" property="dictTypeId" />
+        <result column="order_no" jdbcType="DOUBLE" property="orderNo" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+    </resultMap>
+
+    <select id="getDictItemByDictTypeId" resultMap="DictItemMap">
+      select * from dict_item  where dict_type_id = #{dictTypeId} and dict_item_code = #{dictItemCode}
+    </select>
+</mapper>

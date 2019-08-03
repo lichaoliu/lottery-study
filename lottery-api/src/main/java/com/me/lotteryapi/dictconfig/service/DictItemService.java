@@ -1,5 +1,7 @@
 package com.me.lotteryapi.dictconfig.service;
 
+import com.me.lotteryapi.dictconfig.dao.DictItemMapper;
+import com.me.lotteryapi.dictconfig.domain.DictItem;
 import com.me.lotteryapi.dictconfig.domain.DictType;
 import com.me.lotteryapi.dictconfig.vo.DictItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,17 @@ public class DictItemService {
     @Autowired
     DictTypeService dictTypeService;
 
+    @Autowired
+    DictItemMapper dictItemMapper;
+
     public DictItemVO getDictItemByDictCodeAndId(String dictTypeCode, String dictItemCode) {
         DictType dictType = dictTypeService.getDictTypeByCode(dictTypeCode);
-        return null;
+        DictItem dictItem = getDictItemByDictTypeId(dictType.getId(), dictItemCode);
+        DictItemVO dictItemVO = DictItemVO.convertFor(dictItem);
+        return dictItemVO;
+    }
+
+    public DictItem getDictItemByDictTypeId(String dictTypeId, String dictItemCode) {
+        return dictItemMapper.getDictItemByDictTypeId(dictTypeId, dictItemCode);
     }
 }

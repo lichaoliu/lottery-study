@@ -19,6 +19,7 @@ public class DictTypeService {
     DictTypeMapper dictTypeMapper;
 
     public DictType getDictTypeByCode(String dictTypeCode) {
-        return dictTypeMapper.getDictTypeByCode(dictTypeCode);
+        DictType dictType = dictTypeMapper.getDictTypeByCode(dictTypeCode);
+        return dictType;
     }
 }
