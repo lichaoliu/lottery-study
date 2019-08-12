@@ -2,6 +2,7 @@ package com.me.lotterytask.issuetask;
 
 import com.alibaba.fastjson.JSON;
 import com.me.lotteryapi.issue.entity.SyncLotteryNumMsg;
+import com.me.lotteryapi.issue.service.CqsscService;
 import com.me.lotteryapi.issue.service.IssueService;
 import com.me.lotteryapi.issue.vo.IssueVO;
 import com.xxl.mq.client.consumer.IMqConsumer;
@@ -32,6 +33,9 @@ public class SyncCqsscLotteryNumTask implements IMqConsumer {
     @Autowired
     private IssueService issueService;
 
+    @Autowired
+    private CqsscService cqsscService;
+
     private static final List<Integer> RETRY_LEVEL = Arrays.asList(65, 25, 18, 18, 16, 16, 14, 14, 10, 10, 25, 25, 18,
             18);
 
@@ -46,6 +50,8 @@ public class SyncCqsscLotteryNumTask implements IMqConsumer {
 
         Boolean syncSuccessFlag = false;
         log.info("执行同步重庆时时彩开奖号码定时任务start");
+
+        cqsscService.syncLotteryNum();
 
         return null;
     }

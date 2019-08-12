@@ -12,6 +12,7 @@ import com.me.lotteryapi.issue.entity.Issue;
 import com.me.lotteryapi.issue.entity.IssueGenerateRule;
 import com.me.lotteryapi.issue.entity.IssueSetting;
 import com.me.lotteryapi.issue.vo.IssueVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ import java.util.Set;
  * @author:
  * @create: 2019-07-15 15:45
  */
+@Slf4j
 @Service
 public class IssueService {
     @Autowired
@@ -39,6 +41,33 @@ public class IssueService {
 
     public Integer save(Issue issue){
         return issueMapper.save(issue);
+    }
+
+    /**
+     * 同步开奖号码
+     * @param gameCode
+     * @param issueNum
+     * @param lotteryNum
+     */
+    public void syncLotteryNum(String gameCode, Long issueNum, String lotteryNum) {
+        Issue issue = issueMapper.getTopIssueByIssueNum(gameCode,issueNum);
+        if(issue == null){
+            log.error("当前期号没有生成,请检查定时任务是否发生了异常.gameCode:{},issueNum:{}", gameCode, issueNum);
+            return;
+        }
+        if (!Constant.期号状态_未开奖.equals(issue.getState())) {
+            return;
+        }
+        if(!issue.getAutomaticSettlement()){
+            log.warn("当前期号没有没有设置自动开奖,同步开奖结果失败.gameCode:{},issueNum:{}", gameCode, issueNum);
+            return;
+        }
+        issue.syncLotteryNum(lotteryNum);
+        Integer n = issueMapper.updateIssue(issue);
+        //结算
+        if (issue.getAutomaticSettlement()) {
+
+        }
     }
 
     public IssueVO getLatelyIssue(String gameCode) {

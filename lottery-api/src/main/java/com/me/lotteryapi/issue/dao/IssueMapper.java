@@ -18,4 +18,6 @@ public interface IssueMapper {
     Issue getTopIssueByEndTime(@Param("gameCode") String gameCode, @Param("now") String now);
 
     Issue getTopIssueByIssueNum(@Param("gameCode") String gameCode, @Param("issueNum") Long issueNum);
+
+    Integer updateIssue(Issue issue);
 }

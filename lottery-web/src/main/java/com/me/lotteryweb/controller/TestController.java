@@ -1,12 +1,16 @@
 package com.me.lotteryweb.controller;
 
-import com.me.lotteryapi.issue.service.IssueSettingService;
-import com.me.lotteryapi.issue.vo.IssueVo;
+import com.me.lotteryapi.dictconfig.DictHolder;
+import com.me.lotteryapi.issue.dao.IssueMapper;
+import com.me.lotteryapi.issue.entity.Issue;
+import com.me.lotteryapi.issue.service.IssueService;
+import com.me.lotteryapi.issue.vo.IssueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * @program: lottery-study
@@ -17,22 +21,34 @@ import java.util.Date;
 @RestController
 public class TestController {
 
+
     @Autowired
-    IssueSettingService issueService;
+    IssueService issueService;
 
-
-
+    @Autowired
+    IssueMapper issueMapper;
 
 
     @PostMapping("/placeOrder")
-    public IssueVo test(){
-        IssueVo issueVo1 = new IssueVo();
-        issueVo1.setLotteryTime(new Date());
-        return issueVo1;
+    public String test(){
+        Issue issue = new Issue();
+        issue.syncLotteryNum("111");
+        issue.setId("111");
+        issue.setGameCode("bb");
+        issue.setIssueNum(123L);
+        issue.setIssueNumInner(123L);
+        issue.setLotteryDate(new Date());
+
+        Integer num = issueMapper.updateIssue(issue);
+        System.out.println(num);
+
+        return "test";
     }
 
 
     public static void  main(String[] argus){
+
+
 //        DateTime dateTime = DateUtil.offset(new Date(), DateField.DAY_OF_YEAR, 0);
 ////        DateTime dateTime1 = DateUtil.offset(new Date(), DateField.DAY_OF_MONTH, 0);
 //        DateTime begin = DateUtil.beginOfDay(dateTime);

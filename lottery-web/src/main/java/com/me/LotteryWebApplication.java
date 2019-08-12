@@ -6,8 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@EnableMethodCache(basePackages="com.me")
-//@EnableCreateCacheAnnotation
+@EnableMethodCache(basePackages="com.me")
+@EnableCreateCacheAnnotation
 public class LotteryWebApplication {
 
     public static void main(String[] args) {
