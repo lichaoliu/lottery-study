@@ -1,12 +1,17 @@
 server:
-  port: 1689
+  port: 1688
 spring:
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://192.168.200.7:3306/lottery_study?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://192.168.200.7:3306/lottery?autoReconnect=true&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
     username: root
     password: idss@1234
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: org.apache.tomcat.jdbc.pool.DataSource
+  redis:
+    database: 2
+    host: 192.168.101.225
+    port: 6379
+    password: redis@1234
 mybatis:
   mapper-locations: mappers/*.xml
 jetcache:
@@ -17,6 +22,19 @@ jetcache:
       keyConvertor: fastjson
   remote:
     default:
-      type: redis.lettuce
+      type: redis
       keyConvertor: fastjson
-      uri: redis://192.168.200.8:6379/
+      valueEncoder: java
+      valueDecoder: java
+      host: 192.168.200.8
+      port: 6379
+      poolConfig:
+        minIdle: 5
+        maxIdle: 20
+        maxTotal: 50
+      password: idss@1234
+xxl:
+  mq:
+    admin:
+      address: http://192.168.200.7:9527/xxl-mq-admin
+    accessToken: null

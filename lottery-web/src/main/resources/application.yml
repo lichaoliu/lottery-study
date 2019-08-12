@@ -6,8 +6,6 @@ spring:
     username: root
     password: idss@1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    password: idss@1234
 mybatis:
   mapper-locations: mappers/*.xml
 jetcache:
@@ -29,7 +27,4 @@ jetcache:
         maxIdle: 20
         maxTotal: 50
       password: idss@1234
-#      type: redis.lettuce
-#      keyConvertor: fastjson
-#      uri: redis://192.168.200.8:6379/
 

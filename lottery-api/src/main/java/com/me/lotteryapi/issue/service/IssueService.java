@@ -5,6 +5,7 @@ import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
+import com.alibaba.fastjson.JSON;
 import com.me.lotteryapi.common.utils.IdUtils;
 import com.me.lotteryapi.common.utils.ThreadPoolUtils;
 import com.me.lotteryapi.constants.Constant;
@@ -12,7 +13,10 @@ import com.me.lotteryapi.issue.dao.IssueMapper;
 import com.me.lotteryapi.issue.entity.Issue;
 import com.me.lotteryapi.issue.entity.IssueGenerateRule;
 import com.me.lotteryapi.issue.entity.IssueSetting;
+import com.me.lotteryapi.issue.entity.SyncLotteryNumMsg;
 import com.me.lotteryapi.issue.vo.IssueVO;
+import com.xxl.mq.client.message.XxlMqMessage;
+import com.xxl.mq.client.producer.XxlMqProducer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -132,6 +136,11 @@ public class IssueService {
                         issue.setAutomaticLottery(true);
                         issue.setAutomaticSettlement(true);
                         save(issue);
+                        Date effectTime = DateUtil.offset(issue.getEndTime(), DateField.SECOND, 2);
+
+                        XxlMqProducer.produce(new XxlMqMessage("SYNC_LOTTERY_NUM_" + issue.getGameCode(),
+                                JSON.toJSONString(new SyncLotteryNumMsg(issue.getGameCode(), issue.getIssueNum(), 0)),
+                                effectTime));
                     }
                     count += issueCount;
                 }
