@@ -129,7 +129,7 @@ public class IssueService {
                         issue.setLotteryDate(lotteryDate);
                         issue.setLotteryTime(endTime);
                         issue.setIssueNum(issueNum);
-                        issue.setIssueNum(issueNumInner);
+                        issue.setIssueNumInner(issueNumInner);
                         issue.setStartTime(startTime);
                         issue.setEndTime(endTime);
                         issue.setState(Constant.期号状态_未开奖);
