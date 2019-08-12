@@ -6,6 +6,7 @@ import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.me.lotteryapi.common.utils.IdUtils;
+import com.me.lotteryapi.common.utils.ThreadPoolUtils;
 import com.me.lotteryapi.constants.Constant;
 import com.me.lotteryapi.issue.dao.IssueMapper;
 import com.me.lotteryapi.issue.entity.Issue;
@@ -14,12 +15,14 @@ import com.me.lotteryapi.issue.entity.IssueSetting;
 import com.me.lotteryapi.issue.vo.IssueVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: lottery-study
@@ -34,6 +37,8 @@ public class IssueService {
     IssueMapper issueMapper;
     @Autowired
     IssueSettingService issueSettingService;
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     public List<Issue> getIssueByGameCodeAndLotteryDate(String gameCode, Date lotteryDate) {
         return issueMapper.getIssueByGameCodeAndLotteryDate(gameCode, lotteryDate);
@@ -66,7 +71,9 @@ public class IssueService {
         Integer n = issueMapper.updateIssue(issue);
         //结算
         if (issue.getAutomaticSettlement()) {
-
+            ThreadPoolUtils.getLotterySettlementPool().schedule(() ->{
+                redisTemplate.opsForList().leftPush(Constant.当前开奖期号ID,issue.getId());
+            },1, TimeUnit.SECONDS);
         }
     }
 
@@ -133,4 +140,7 @@ public class IssueService {
 
     }
 
+    public IssueVO getIssueByGameCodeAndIssueNum(String gameCode, Long issueNum) {
+        return IssueVO.convertFor(issueMapper.getTopIssueByIssueNum(gameCode,issueNum));
+    }
 }
