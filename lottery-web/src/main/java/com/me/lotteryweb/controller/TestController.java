@@ -29,7 +29,7 @@ public class TestController {
     IssueMapper issueMapper;
 
 
-    @PostMapping("/placeOrder")
+    @PostMapping("/test")
     public String test(){
         Issue issue = new Issue();
         issue.syncLotteryNum("111");
