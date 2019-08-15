@@ -1,10 +1,15 @@
 package com.me.lotteryweb.betting.controller;
 
 import com.me.lotteryapi.betting.param.PlaceOrderParam;
+import com.me.lotteryapi.betting.service.BettingService;
 import com.me.lotteryapi.common.vo.Result;
-import org.springframework.stereotype.Controller;
+import com.me.lotteryweb.config.security.UserAccountDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: lottery-study
@@ -16,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/betting")
 public class BettingController {
 
+    @Autowired
+    private BettingService bettingService;
+
     /**
      * 下单
      *
@@ -23,6 +31,11 @@ public class BettingController {
      */
     @PostMapping("/placeOrder")
     public Result placeOrder(@Validated @RequestBody PlaceOrderParam placeOrderParam) {
+        UserAccountDetails user = null;
+        bettingService.placeOrder(placeOrderParam, user.getUserAccountId());
+
+
+
         System.out.println(placeOrderParam);
         return Result.success();
     }
